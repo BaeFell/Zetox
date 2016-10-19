@@ -20,7 +20,35 @@ public class ScriptParser {
 			Boolean inComment = false;
 			String[] lineSplit = line.split(" ");
 			
-			for(String lineS : lineSplit) {
+			String lowerCaseLine = line.toLowerCase();
+			for(Effect e : ZetoxAPI.getEffectMap().getEffectsList()) {
+				String effectSyntax = e.getSyntax();
+				String effectLowerCaseSyntax = e.getSyntax().toLowerCase();
+				String[] splitEffectSyntax = effectLowerCaseSyntax.split(" ");
+				Integer length = splitEffectSyntax.length;
+				Integer lenMet = 0;
+				
+				for(int i = 0; i < length; i++) {
+					if(splitEffectSyntax[i].startsWith("%{")) {
+						continue;
+					} else if(splitEffectSyntax[i].startsWith("%")) {
+						
+					}
+				}
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			/*for(String lineS : lineSplit) {
 				if(lineS.startsWith("{")) {
 					if(lineS.endsWith("}")) {
 						currentVariableString = lineS.replace("{", "").replace("}", "");
@@ -63,7 +91,7 @@ public class ScriptParser {
 					}
 				}
 				
-			}
+			}*/
 		}
 	}
 	
