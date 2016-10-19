@@ -1,4 +1,4 @@
-package uk.co.umbaska.zetox.types.datatypes;
+package uk.co.umbaska.zetox.types;
 
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;

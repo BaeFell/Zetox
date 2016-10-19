@@ -1,4 +1,4 @@
-package uk.co.umbaska.zetox.types.datatypes;
+package uk.co.umbaska.zetox.types;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import uk.co.umbaska.zetox.Zetox;
-import uk.co.umbaska.zetox.types.enums.OutputLevel.OutputLevels;
 
 public class Script {
 
@@ -24,12 +23,12 @@ public class Script {
 		try {
 			path = f.getCanonicalPath();
 		} catch (IOException e) {
-			Zetox.output(OutputLevels.SEVERE, "Failed to get canonical path for: " + name + " (IOException)");
+			Zetox.severe("Failed to get canonical path for: " + name + " (IOException)");
 			path = "unknown path (IOException)";
 		}
 		fetchFileInformation();
 		if(Zetox.debugMode) {
-			Zetox.output(OutputLevels.DEBUG, "Generated script object:\n"
+			Zetox.log("Generated script object:\n"
 					+ "Name: " + name
 					+ "\nPath: " + path
 					+ "\nVersion: " + version
@@ -61,19 +60,19 @@ public class Script {
 	            		String[] lineSplit = line.split(" ");
 	            		Double v = 0.0;
 	            		if(lineSplit[2] == null) {
-	            			Zetox.output(OutputLevels.SEVERE, "Failed to fetch version for: " + name + " (null at split point 2)");
+	            			Zetox.severe("Failed to fetch version for: " + name + " (null at split point 2)");
 	            		}
 	            		try {
 	            			v = Double.valueOf(lineSplit[2]);
 	            		} catch(Exception e) {
-	            			Zetox.output(OutputLevels.SEVERE, "Failed to get Double in: " + name + ", using String: " + lineSplit[2]);
+	            			Zetox.severe("Failed to get Double in: " + name + ", using String: " + lineSplit[2]);
 	            		}
 	            		version = v;
 	            	} else if(line.startsWith("# author: ")) {
 	            		String[] lineSplit = line.split(" ");
 	            		String a = "unknown author";
 	            		if(lineSplit[2] == null) {
-	            			Zetox.output(OutputLevels.SEVERE, "Failed to fetch author for: " + name + " (null at split point 2)");
+	            			Zetox.severe("Failed to fetch author for: " + name + " (null at split point 2)");
 	            		}
 	            		if(lineSplit[2].startsWith("\"")) {
 	            			for(int i = 2; i < lineSplit.length; i++) {

@@ -1,12 +1,14 @@
-package uk.co.umbaska.zetox.types.datatypes;
+package uk.co.umbaska.zetox.types;
 
 public class Expression {
 
 	private String expressionSyntax;
+	private String lowerCaseSyntax;
 	private Class<?> expressionClass;
 	public Expression(String syntax, Class<?> clazz) {
 		expressionSyntax = syntax;
 		expressionClass = clazz;
+		lowerCaseSyntax = expressionSyntax.toLowerCase();
 	}
 	
 	public String getSyntax() {
@@ -15,6 +17,10 @@ public class Expression {
 	
 	public Class<?> getRawClass() {
 		return expressionClass;
+	}
+	
+	public String getLowerCaseSyntax() {
+		return lowerCaseSyntax;
 	}
 
 }

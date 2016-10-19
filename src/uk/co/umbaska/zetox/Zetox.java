@@ -3,32 +3,63 @@ package uk.co.umbaska.zetox;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import uk.co.umbaska.zetox.core.ZetoxAPI;
-import uk.co.umbaska.zetox.types.enums.OutputLevel.OutputLevels;
+import uk.co.umbaska.zetox.parser.VariableManager;
 
 public class Zetox extends JavaPlugin {
 
+	public static Double ZetoxVersion = 1.0;
+	
+	public static Integer defaultInteger = 0; // the default log message level
 	public static Boolean debugMode = true;
-	private static ZetoxAPI zta;
+	
+	public static ZetoxAPI ZetoxAPI;
 	
 	public void onEnable() {
-		zta = new ZetoxAPI();
+		if(defaultInteger > 2) {
+			defaultInteger = 0;
+			log(defaultInteger, "Reset defaultInteger to 0 as it exceeds allowed");
+		}
+		
+		ZetoxAPI = new ZetoxAPI();
 	}
 	
-	public ZetoxAPI getZetoxAPI() {
-		return zta;
-	}
-	
-	public static void output(OutputLevels ol, String message) {
-		if(ol == OutputLevels.LOG) {
-			Bukkit.getLogger().info("[Zetox][Info] " + message);
-		} else if(ol == OutputLevels.WARN) {
-			Bukkit.getLogger().warning("[Zetox][Warn] " + message);
-		} else if(ol == OutputLevels.SEVERE) {
-			Bukkit.getLogger().severe("[Zetox][Severe] " + message);
-		} else if(ol == OutputLevels.DEBUG) {
-			Bukkit.getLogger().info("[Zetox][Debug] " + message);
+	/*
+	 * 0 = info
+	 * 1 = warn
+	 * 2 = severe
+	 */
+	public static void log(Integer level, String message) {
+		if(level == 0) {
+			Bukkit.getLogger().info("[Zetox] " + message);
+		} else if(level == 1) {
+			Bukkit.getLogger().warning("[Zetox] " + message);
+		} else if(level == 2) {
+			Bukkit.getLogger().severe("[Zetox] " + message);
+		} else {
+			log(0, "Invalid level given! Defaulting to: " + defaultInteger);
+			log(defaultInteger, message);
 		}
 	}
+	
+	public static void info(String message) {
+		log(0, message);
+	}
+	
+	public static void log(String message) {
+		info(message);
+	}
+	
+	public static void warn(String message) {
+		log(1, message);
+	}
+	
+	public static void warning(String message) {
+		warn(message);
+	}
+	
+	public static void severe(String message) {
+		log(2, message);
+	}
+
 
 }
